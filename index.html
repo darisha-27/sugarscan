@@ -444,3 +444,243 @@
  
     <div id="quiz" class="section">
       <div class="quiz-card" id="quizBox">
+ <div style="font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 6px;" id="quizCounter">ВОПРОС 1 ИЗ 5</div>
+        <div class="quiz-q" id="quizQuestion"></div>
+        <div id="quizOptions"></div>
+        <div class="quiz-explain" id="quizExplain"></div>
+        <button class="next-btn" id="nextQuizBtn" onclick="nextQuestion()">Следующий вопрос →</button>
+      </div>
+    </div>
+ 
+    <div id="dict" class="section">
+      <div class="dict-item">
+        <h3>1. Мальтодекстрин (Maltodextrin)</h3>
+        <p>Часто добавляют в «фитнес»-батончики и спортивное питание. Его гликемический индекс (105–136) даже выше, чем у обычного столового сахара — вызывает резкий скачок инсулина и последующую сонливость на уроках.</p>
+      </div>
+      <div class="dict-item">
+        <h3>2. Сироп топинамбура, агавы, финиковый сироп</h3>
+        <p>Маркетологи подают их как «полезную замену сахару». На деле содержат до 70–85% свободной фруктозы, которая перерабатывается исключительно печенью и при избытке превращается в жиры.</p>
+      </div>
+      <div class="dict-item">
+        <h3>3. Глюкозно-фруктозный сироп (ГФС) и патока</h3>
+        <p>Дешёвый промышленный подсластитель в газировках, соусах и выпечке. Не стимулирует выработку гормона насыщения (лептина), из-за чего легко переесть.</p>
+      </div>
+      <div class="dict-item">
+        <h3>4. Концентрированный яблочный / виноградный сок</h3>
+        <p>Используется в продуктах с пометкой «Без добавления сахара». По сути это выпаренный сахарный сироп, лишённый полезной клетчатки целого фрукта.</p>
+      </div>
+      <div class="dict-item">
+        <h3>5. Декстроза, мальтоза, галактоза</h3>
+        <p>Химические названия простых моно- и дисахаридов. Если в составе продукта на первых трёх местах стоят эти слова — перед вами десерт.</p>
+      </div>
+    </div>
+ 
+    <footer>
+      Автор проекта: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026
+    </footer>
+  </div>
+ 
+  <script>
+    const products = [
+      { name: "Энергетик Adrenaline Rush (0,45 л)", cat: "Напитки", sugar: 58.4, mask: "Сахар, глюкоза, мальтодекстрин", swap: "Зелёный чай с лимоном или эспрессо-тоник без сахара (0 г)" },
+      { name: "Добрый Cola (0,5 л)", cat: "Напитки", sugar: 53.0, mask: "Сахар, сахарный колер", swap: "Кола Zero на подсластителях или минералка с мятой (0 г)" },
+      { name: "Раф с сиропом (кофейня, 0,3 л)", cat: "Напитки", sugar: 36.0, mask: "Сахарный сироп, патока", swap: "Капучино с корицей без сиропа (0 г добавл. сахара)" },
+      { name: "Холодный чай Lipton Персик (0,5 л)", cat: "Напитки", sugar: 34.5, mask: "Сахар, фруктоза, конц. сок", swap: "Домашний холодный чай каркаде (0 г)" },
+      { name: "Яблочный сок пакетик (0,2 л)", cat: "Напитки", sugar: 22.0, mask: "Концентрированный яблочный сок", swap: "Целое свежее яблоко (содержит клетчатку)" },
+      { name: "Батончик Snickers (50,5 г)", cat: "ПП и батончики", sugar: 25.8, mask: "Сахар, глюкозный сироп", swap: "Горсть жареного арахиса + долька горького шоколада 85% (3 г)" },
+      { name: "Фитнес-батончик Corny Big (50 г)", cat: "ПП и батончики", sugar: 17.5, mask: "Глюкозно-фруктозный сироп, мёд", swap: "Протеиновый батончик без сахара на стевии (1–2 г)" },
+      { name: "Гранола «Фитнес» порция (60 г)", cat: "ПП и батончики", sugar: 15.2, mask: "Патока, мёд, тростниковый сахар", swap: "Овсяные хлопья долгой варки с ягодами (2 г)" },
+      { name: "Протеиновый батончик глазир. (60 г)", cat: "ПП и батончики", sugar: 14.0, mask: "Мальтодекстрин, патока, фруктоза", swap: "Батончик с маркировкой «0% added sugar» (1,5 г)" },
+      { name: "Питьевой йогурт фруктовый (260 г)", cat: "Молочка и соусы", sugar: 28.6, mask: "Сахар, глюкозно-фруктозный сироп", swap: "Белый греческий йогурт + банан (0 г добавл. сахара)" },
+      { name: "Глазированный сырок (50 г)", cat: "Молочка и соусы", sugar: 16.5, mask: "Сахар, патока крахмальная", swap: "Мягкий творожок 5% без наполнителя (0 г)" },
+      { name: "Соус кисло-сладкий дип (25 г)", cat: "Молочка и соусы", sugar: 10.5, mask: "Сахар, глюкозно-фруктозный сироп", swap: "Сырный соус или сметанно-чесночный (1 г)" },
+      { name: "Кетчуп томатный (2 ст. ложки)", cat: "Молочка и соусы", sugar: 7.2, mask: "Сахар, модиф. крахмал", swap: "Томатная паста со специями без сахара (0 г)" },
+      { name: "Творожок мягкий без добавок (130 г)", cat: "Молочка и соусы", sugar: 0.0, mask: "Скрытых сахаров нет", swap: "Отличный выбор для перекуса!" },
+      { name: "Вода / Газировка Zero (0,5 л)", cat: "Напитки", sugar: 0.0, mask: "Подсластители (0 ккал)", swap: "Безопасная замена сладкой газировке" }
+    ];
+ 
+    let totalSugar = 0;
+ 
+    function renderProducts(filter = "all") {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = "";
+      const filtered = filter === "all" ? products : products.filter(p => p.cat === filter);
+ 
+      filtered.forEach(item => {
+        const cubes = (item.sugar / 4.5).toFixed(1);
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-top">
+            <div class="cat-tag">${item.cat}</div>
+            <div class="prod-title">${item.name}</div>
+            <div class="mask-info"><b>В составе:</b> ${item.mask}</div>
+            <div class="swap-info">💡 <b>Замена:</b> ${item.swap}</div>
+          </div>
+          <div class="card-bottom">
+            <div class="sugar-val">${item.sugar} г <small>≈ ${cubes} куб. сахара</small></div>
+            <button class="add-btn" onclick="addSugar(${item.sugar})">+ Добавить</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+ 
+    function addSugar(amount) {
+      totalSugar = +(totalSugar + amount).toFixed(1);
+      updateDashboard();
+    }
+ 
+    function resetCalc() {
+      totalSugar = 0;
+      updateDashboard();
+    }
+ 
+    function updateDashboard() {
+      const gramsEl = document.getElementById("totalGrams");
+      const cubesEl = document.getElementById("totalCubes");
+      const barEl = document.getElementById("progressBar");
+      const msgEl = document.getElementById("statusMsg");
+ 
+      const cubes = (totalSugar / 4.5).toFixed(1);
+      const pct = Math.min((totalSugar / 25) * 100, 100);
+ 
+      gramsEl.innerHTML = `${totalSugar} <span>г / 25 г</span>`;
+      cubesEl.innerText = `${cubes} 🧊`;
+      barEl.style.width = pct + "%";
+ 
+      if (totalSugar === 0) {
+        barEl.style.backgroundColor = "var(--green)";
+        msgEl.innerText = "Выбери продукты ниже, чтобы проверить свой рацион";
+      } else if (totalSugar <= 25) {
+        barEl.style.backgroundColor = "var(--green)";
+        msgEl.innerText = `✅ В пределах безопасной нормы ВОЗ (${Math.round((totalSugar/25)*100)}%)`;
+      } else if (totalSugar <= 50) {
+        barEl.style.backgroundColor = "var(--yellow)";
+        msgEl.innerText = `⚠️ Норма превышена! Риск «сахарных качелей» и усталости`;
+      } else {
+        barEl.style.backgroundColor = "var(--red)";
+        msgEl.innerText = `🚨 Критический избыток (${Math.round((totalSugar/25)*100)}% от нормы)! Выбирай замены`;
+      }
+    }
+ 
+    function filterItems(cat, btn) {
+      document.querySelectorAll(".filter-chip").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderProducts(cat);
+    }
+ 
+    function switchTab(tabId, btn) {
+      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+    }
+ 
+    const quizData = [
+      {
+        q: "Где больше сахара: в бутылке холодного чая Lipton (0,5 л) или в глазированном сырке?",
+        opts: ["В глазированном сырке", "В бутылке холодного чая Lipton (0,5 л)", "Одинаково"],
+        ans: 1,
+        exp: "В бутылке холодного чая 0,5 л содержится 34,5 г сахара (почти 8 кубиков), а в сырке — 16,5 г."
+      },
+      {
+        q: "Правда ли, что сироп топинамбура и мёд полезнее обычного сахара для печени?",
+        opts: ["Да, это природные продукты", "Нет, в них до 75% фруктозы, которая нагружает печень", "В них вообще нет углеводов"],
+        ans: 1,
+        exp: "Сиропы содержат свободную фруктозу, которая перерабатывается в печени и при избытке откладывается в виде жиров."
+      },
+      {
+        q: "Что такое «мальтодекстрин» на этикетке фитнес-батончика?",
+        opts: ["Безопасный белок", "Пищевые волокна", "Быстрый углевод с гликемическим индексом выше сахара"],
+        ans: 2,
+        exp: "Мальтодекстрин повышает уровень глюкозы в крови быстрее, чем чистый рафинад."
+      },
+      {
+        q: "Сколько грамм добавленного сахара в день ВОЗ считает безопасной нормой для подростка?",
+        opts: ["До 25 г (5–6 кубиков)", "До 100 г", "Ограничений нет"],
+        ans: 0,
+        exp: "Рекомендация ВОЗ для максимальной пользы здоровью — менее 5% от суточной калорийности, то есть около 25 г."
+      },
+      {
+        q: "Почему после сладкого перекуса на перемене через 45 минут клонит в сон?",
+        opts: ["Из-за нехватки витамина С", "Из-за резкого выброса инсулина и падения уровня глюкозы («сахарные качели»)", "Из-за обезвоживания"],
+        ans: 1,
+        exp: "Ударная доза инсулина резко снижает сахар в крови, и мозг начинает испытывать временный дефицит энергии."
+      }
+    ];
+ 
+    let curQ = 0;
+    let score = 0;
+ 
+    function loadQuiz() {
+      const box = document.getElementById("quizBox");
+      if (curQ >= quizData.length) {
+        box.innerHTML = `
+          <h2 style="margin-bottom: 10px;">Тест пройден! 🎉</h2>
+          <p style="font-size: 16px; margin-bottom: 16px;">Твой результат: <b>${score} из ${quizData.length}</b> правильных ответов.</p>
+  <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">Теперь ты умеешь находить скрытые сахара на этикетках. Попробуй собрать свой дневной перекус во вкладке «Калькулятор»!</p>
+          <button class="add-btn" onclick="restartQuiz()">Пройти ещё раз</button>
+        `;
+        return;
+      }
+ 
+      const item = quizData[curQ];
+      document.getElementById("quizCounter").innerText = `ВОПРОС ${curQ + 1} ИЗ ${quizData.length}`;
+      document.getElementById("quizQuestion").innerText = item.q;
+      document.getElementById("quizExplain").style.display = "none";
+      document.getElementById("nextQuizBtn").style.display = "none";
+ 
+      const optsBox = document.getElementById("quizOptions");
+      optsBox.innerHTML = "";
+      item.opts.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-opt";
+        btn.innerText = optText;
+        btn.onclick = () => checkAnswer(idx, btn);
+        optsBox.appendChild(btn);
+      });
+    }
+ 
+    function checkAnswer(selectedIdx, btnEl) {
+      const item = quizData[curQ];
+      const allBtns = document.querySelectorAll(".quiz-opt");
+      allBtns.forEach(b => b.disabled = true);
+ 
+      if (selectedIdx === item.ans) {
+        btnEl.classList.add("correct");
+        score++;
+      } else {
+        btnEl.classList.add("wrong");
+        allBtns[item.ans].classList.add("correct");
+      }
+ 
+      const expEl = document.getElementById("quizExplain");
+      expEl.innerText = item.exp;
+      expEl.style.display = "block";
+      document.getElementById("nextQuizBtn").style.display = "inline-block";
+    }
+ 
+    function nextQuestion() {
+      curQ++;
+      loadQuiz();
+    }
+ 
+    function restartQuiz() {
+      curQ = 0;
+      score = 0;
+      document.getElementById("quizBox").innerHTML = `
+        <div style="font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 6px;" id="quizCounter"></div>
+        <div class="quiz-q" id="quizQuestion"></div>
+        <div id="quizOptions"></div>
+        <div class="quiz-explain" id="quizExplain"></div>
+        <button class="next-btn" id="nextQuizBtn" onclick="nextQuestion()">Следующий вопрос →</button>
+      `;
+      loadQuiz();
+    }
+ 
+    renderProducts();
+    loadQuiz();
+  </script>
+</body>
+</html>
