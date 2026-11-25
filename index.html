@@ -37,7 +37,7 @@
     .card-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 8px; }
     .val { font-size: 14px; font-weight: 800; color: #0f172a; }
     .add-btn { background: #0284c7; color: #fff; border: none; padding: 7px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .add-btn:active { transform: scale(0.95); }.white-box { background: #ffffff; border-radius: 20px; padding: 20px; margin-bottom: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .add-btn:active { transform: scale(0.95); }.white-box { background: #ffffff; border-radius: 20px; padding: 18px 20px; margin-bottom: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
     .opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 2px solid #e2e8f0; padding: 13px 15px; border-radius: 14px; margin-bottom: 8px; font-size: 14px; font-weight: 700; cursor: pointer; color: #1e293b; }
     .opt.ok { background: #dcfce7; border-color: #10b981; color: #065f46; }
     .opt.no { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
@@ -55,7 +55,7 @@
 
     <div class="tabs">
       <button class="tab active" onclick="go('s1', this)">🧮 Калькулятор</button>
-      <button class="tab" onclick="go('s2', this)">❓ Мини-квиз</button>
+      <button class="tab" onclick="go('s2', this)">⚔️ Батл-квиз</button>
       <button class="tab" onclick="go('s3', this)">🕵️ Имена сахара</button>
     </div>
 
@@ -93,8 +93,7 @@
       </details>
 
       <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🥤 3. Глюкозно-фруктозный сироп (ГФС) <span style="float:right; font-size:12px; background:#fee2e2; color:#dc2626; padding:2px 8px; border-radius:99px;">Усилитель аппетита</span></summary>
-        <p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> газировка, кетчуп, кисло-сладкий соус, выпечка.<br><b>В чём подвох:</b> не включает гормон сытости (лептин) — можно выпить литр напитка и всё равно хотеть есть.</p>
+        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🥤 3. Глюкозно-фруктозный сироп (ГФС) <span style="float:right; font-size:12px; background:#fee2e2; color:#dc2626; padding:2px 8px; border-radius:99px;">Усилитель аппетита</span></summary><p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> газировка, кетчуп, кисло-сладкий соус, выпечка.<br><b>В чём подвох:</b> не включает гормон сытости (лептин) — можно выпить литр напитка и всё равно хотеть есть.</p>
       </details>
 
       <details class="white-box" style="cursor:pointer;">
@@ -108,14 +107,13 @@
       </details>
     </div>
 
-    <footer>Автор: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026-2027</footer>
+    <footer>Автор: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026–2027</footer>
   </div>
 
   <script>
     const food = [
       { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, m: "Сахар, глюкоза, мальтодекстрин", s: "Зелёный чай с лимоном (0 г)" },
-      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, m: "Сахар, сахарный колер", s: "Кола Zero или вода с мятой (0 г)" },{ i: "🍬", n: "Жвачка с сахаром (пачка, 14 г)", g: 9.8, m: "Сахар, глюкозный сироп", s: "Жвачка без сахара на ксилите и сорбите (0 г)" },
-      { i: "🧃", n: "Холодный чай Lipton (0,5 л)", g: 34.5, m: "Сахар, фруктоза, конц. сок", s: "Домашний чай каркаде (0 г)" },
+      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, m: "Сахар, сахарный колер", s: "Кола Zero или вода с мятой (0 г)" },{ i: "🧃", n: "Холодный чай Lipton (0,5 л)", g: 34.5, m: "Сахар, фруктоза, конц. сок", s: "Домашний чай каркаде (0 г)" },
       { i: "🥛", n: "Йогурт питьевой (260 г)", g: 28.6, m: "Сахар, глюкозно-фруктозный сироп", s: "Белый греческий йогурт + банан (0 г)" },
       { i: "🍫", n: "Батончик Snickers (50 г)", g: 25.8, m: "Сахар, глюкозный сироп", s: "Арахис + горький шоколад 85% (3 г)" },
       { i: "🍎", n: "Яблочный сок (0,2 л)", g: 22.0, m: "Концентрированный сок", s: "Целое свежее яблоко (с клетчаткой)" },
@@ -124,16 +122,44 @@
       { i: "🥣", n: "Гранола «Фитнес» (60 г)", g: 15.2, m: "Патока, мёд, тростниковый сахар", s: "Овсянка с ягодами (2 г)" },
       { i: "💪", n: "Протеин. батончик (60 г)", g: 14.0, m: "Мальтодекстрин, патока", s: "Батончик «0% added sugar» (1 г)" },
       { i: "🥫", n: "Соус кисло-сладкий (25 г)", g: 10.5, m: "Сахар, глюкозно-фруктозный сироп", s: "Сметанно-чесночный соус (1 г)" },
+      { i: "🍬", n: "Жвачка с сахаром (14 г)", g: 9.8, m: "Сахар, глюкозный сироп", s: "Жвачка без сахара на ксилите/сорбите (0 г)" },
       { i: "🍅", n: "Кетчуп (2 ст. ложки)", g: 7.2, m: "Сахар, модиф. крахмал", s: "Томатная паста со специями (0 г)" },
       { i: "🍶", n: "Творожок без добавок (130 г)", g: 0.0, m: "Скрытого сахара нет", s: "Отличный перекус!" },
       { i: "💧", n: "Вода / Газировка Zero (0,5 л)", g: 0.0, m: "Подсластители (0 ккал)", s: "Безопасная замена газировке" }
     ];
     let tot = 0;
+    const gr = document.getElementById("grid");
+    food.forEach(f => {
+      gr.innerHTML += `<div class="card"><div><div class="card-head"><div class="ico">${f.i}</div><div class="name">${f.n}</div></div><div class="mask"><b>Маска:</b> ${f.m}</div><div class="swap">💡 <b>Замена:</b> ${f.s}</div></div><div class="card-foot"><span class="val">${f.g} г (≈ ${(f.g/4.5).toFixed(1)} 🧊)</span><button class="add-btn" onclick="add(${f.g})">+ Добавить</button></div></div>`;
+    });
+    function add(v) {
+      tot = +(tot + v).toFixed(1);
+      upd();
+      if (v === 0) document.getElementById("msg").innerText = "🌟 Отличный выбор! В этом продукте 0 г сахара";
+    }
+    function clr() { tot = 0; upd(); }
+    function upd() {
+      const cn = +(tot / 4.5).toFixed(1), cc = Math.round(tot / 4.5);
+      document.getElementById("g").innerText = tot + " г";
+      document.getElementById("c").innerText = cn + " кубиков";
+      document.getElementById("vis").innerText = cc > 0 ? "🧊".repeat(Math.min(cc, 28)) : "Нажимай «+ Добавить» на карточках ниже 👇";
+      const b = document.getElementById("bar"), m = document.getElementById("msg");
+      b.style.width = Math.min((tot / 25) * 100, 100) + "%";
+      if (tot === 0) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ Пока 0 г — отличный старт"; }
+      else if (tot <= 25) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ В пределах безопасной нормы ВОЗ"; }
+      else if (tot <= 50) { b.style.background = "#f59e0b"; m.style.color = "#d97706"; m.innerText = "⚠️ Норма превышена! Возможна сонливость"; }
+      else { b.style.background = "#ef4444"; m.style.color = "#dc2626"; m.innerText = "🚨 Сильный перебор! Выбирай умные замены"; }
+    }
+    function go(id, el) {
+      document.querySelectorAll(".sec").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      el.classList.add("active");
+    }
     const qs = [
-      { q: "⚔️ Битва 1: Где спрятано БОЛЬШЕ сахара?", o: ["🧀 Глазированный сырок (50 г)", "🧃 Бутылка холодного чая Lipton (0,5 л)"], a: 1, e: "В чае Lipton целых 34,5 г сахара (почти 8 кубиков!), а в сырке — 16,5 г." },
-      { q: "⚔️ Битва 2: Что сильнее поднимет сахар в крови?", o: ["🌾 «Фитнес»-батончик с мальтодекстрином", "🍬 Обычный кусочек рафинада"], a: 0, e: "У мальтодекстрина гликемический индекс выше, чем у чистого столового сахара!" },
+      { q: "⚔️ Битва 1: Где спрятано БОЛЬШЕ сахара?", o: ["🧀 Глазированный сырок (50 г)", "🧃 Бутылка холодного чая Lipton (0,5 л)"], a: 1, e: "В чае Lipton целых 34,5 г сахара (почти 8 кубиков!), а в сырке — 16,5 г." },{ q: "⚔️ Битва 2: Что сильнее поднимет сахар в крови?", o: ["🌾 «Фитнес»-батончик с мальтодекстрином", "🍬 Обычный кусочек рафинада"], a: 0, e: "У мальтодекстрина гликемический индекс выше, чем у чистого столового сахара!" },
       { q: "🍯 Миф или правда: сироп топинамбура и мёд полезнее сахара для печени?", o: ["✅ Правда, это природные продукты", "❌ Миф! В них до 75% фруктозы, которая нагружает печень"], a: 1, e: "Свободная фруктоза перерабатывается печенью и при избытке превращается в жиры." },
-      { q: "🥫 Сюрприз в соусе: сколько кубиков сахара в одной маленькой ванночке кисло-сладкого соуса (25 г)?", o: ["🧊 Меньше половины кубика", "🧊🧊 Больше 2 кубиков сахара!"], a: 1, e: "В 25 г кисло-сладкого соуса целых 10,5 г сахара — почти половина дневной нормы." },
+      { q: "🥫 Сюрприз в соусе: сколько кубиков сахара в одной ванночке кисло-сладкого соуса (25 г)?", o: ["🧊 Меньше половины кубика", "🧊🧊 Больше 2 кубиков сахара!"], a: 1, e: "В 25 г кисло-сладкого соуса целых 10,5 г сахара — почти половина дневной нормы." },
       { q: "🎯 Финал: сколько кубиков сахара в день ВОЗ разрешает подростку без вреда?", o: ["🧊 До 5,5 кубиков (25 г)", "🧊 До 15 кубиков (70 г)"], a: 0, e: "Безопасный лимит ВОЗ — всего 25 г добавленного сахара в сутки." }
     ];
     let qi = 0, sc = 0;
@@ -156,7 +182,10 @@
       else { el.classList.add("no"); document.querySelectorAll(".opt")[qs[qi].a].classList.add("ok"); }
       document.getElementById("exp").style.display = "block";
       document.getElementById("nx").style.display = "block";
-    }
+    }showQ();
+  </script>
+</body>
+</html>
     showQ();
   </script>
 </body>
