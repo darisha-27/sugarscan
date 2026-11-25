@@ -87,7 +87,7 @@
       <div class="white-box"><h3 style="color:#0369a1;margin-bottom:4px;">5. Декстроза, мальтоза, галактоза</h3><p style="font-size:14px;color:#475569;">Химические названия простых сахаров. Если они стоят на первых местах в составе — перед вами десерт.</p></div>
     </div>
 
-    <footer>Автор: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026</footer>
+    <footer>Автор: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026-2027</footer>
   </div>
 
   <script>
@@ -122,7 +122,13 @@
           </div>
         </div>`;
     });
-    function add(v) { tot = +(tot + v).toFixed(1); upd(); }
+    function add(v) {
+      tot = +(tot + v).toFixed(1);
+      upd();
+      if (v === 0) {
+        document.getElementById("msg").innerText = "🌟 Отличный выбор! В этом продукте 0 г добавленного сахара";
+      }
+    }
     function clr() { tot = 0; upd(); }
     function upd() {
       const cn = +(tot / 4.5).toFixed(1), cc = Math.round(tot / 4.5);
