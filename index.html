@@ -16,8 +16,7 @@
     .tab.active { background: #0284c7; color: #fff; box-shadow: 0 3px 8px rgba(2,132,199,0.25); }
     .sec { display: none; }
     .sec.active { display: block; }
-    .panel { background: #fff; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(3, 105, 161, 0.12); margin-bottom: 12px; }
-    .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .panel { background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%); border: 2px solid #7dd3fc; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(3, 105, 161, 0.14); margin-bottom: 12px; }.row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
     .big { font-size: 28px; font-weight: 900; }
     .cubes-txt { font-size: 14px; font-weight: 800; color: #0284c7; background: #f0f9ff; padding: 4px 10px; border-radius: 8px; }
     .cubes-vis { font-size: 14px; font-weight: 600; color: #475569; min-height: 22px; margin: 4px 0 8px; }
@@ -26,7 +25,7 @@
     .status { font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
     .swap-tip { margin-top: 8px; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; font-size: 12px; font-weight: 700; color: #047857; display: none; }
     .reset { background: #fee2e2; color: #dc2626; border: none; padding: 5px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
-    .calc-box { background: #fff; border-radius: 16px; padding: 12px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
+    .calc-box { background: #fefce8; border: 1.5px solid #fde047; border-radius: 16px; padding: 12px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
     .calc-title { font-size: 12px; font-weight: 800; color: #0c4a6e; margin-bottom: 8px; }
     .type-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 8px; }
     .t-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 4px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #475569; cursor: pointer; }
@@ -39,7 +38,8 @@
     .ico { font-size: 22px; }
     .name { font-size: 14px; font-weight: 700; flex: 1; }
     .val { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
-    .white-box { background: #fff; border-radius: 18px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }.opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 1px solid #cbd5e1; padding: 11px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .white-box { background: #fff; border-radius: 18px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
+    .opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 1px solid #cbd5e1; padding: 11px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
     .opt.ok { background: #dcfce7; border-color: #10b981; color: #065f46; }
     .opt.no { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
     .exp { margin-top: 8px; padding: 8px 12px; background: #f0f9ff; border-left: 3px solid #0284c7; border-radius: 6px; font-size: 13px; color: #0c4a6e; display: none; }
@@ -89,9 +89,7 @@
       </div>
 
       <div class="grid" id="grid"></div>
-    </div>
-
-    <div id="s2" class="sec"><div class="white-box" id="quiz"></div></div>
+    </div><div id="s2" class="sec"><div class="white-box" id="quiz"></div></div>
 
     <div id="s3" class="sec">
       <details class="white-box" style="cursor:pointer;"><summary style="font-weight:700;color:#0369a1;">⚡ Мальтодекстрин</summary><p style="font-size:13px;color:#475569;margin-top:6px;">В «фитнес»-батончиках. Поднимает сахар быстрее рафинада.</p></details>
@@ -104,21 +102,18 @@
     <footer>Автор: Кочеткова Дарина, 10 «Б» • СОШ № 11, г. Бердск • 2026–2027</footer>
   </div><script>
     const food = [
-      { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, s: "Энергетик: выпей половину банки или замени на зелёный чай с лимоном" },
-      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, s: "Кола: возьми банку 0,33 л вместо 0,5 л или выбери Колу Zero (0 г)" },
-      { i: "🧃", n: "Чай Lipton (0,5 л)", g: 34.5, s: "Чай Lipton: растяни бутылку на два раза или завари каркаде с мятой (0 г)" },
-      { i: "🥛", n: "Йогурт сладкий", g: 28.6, s: "Йогурт: возьми белый без добавок и добавь свежий банан или ягоды" },
-      { i: "🍫", n: "Snickers", g: 25.8, s: "Snickers: съешь ровно половину или замени на горсть арахиса" },
-      { i: "🍎", n: "Сок яблочный (0,2 л)", g: 22.0, s: "Сок: разбавь водой 1:1 или съешь целое яблоко — клетчатка замедлит сахар" },
-      { i: "🌾", n: "Батончик Corny Big", g: 17.5, s: "Corny Big: раздели пополам (8,7 г) или выбери батончик без сахара" },
-      { i: "🧀", n: "Глазированный сырок", g: 16.5, s: "Сырок: съешь 1 штуку вместо двух или замени на творожок без добавок" },
-      { i: "🥣", n: "Гранола «Фитнес»", g: 15.2, s: "Гранола: смешай 50/50 с обычной овсянкой — сахара станет в 2 раза меньше" },
-      { i: "🥫", n: "Соус кисло-сладкий", g: 10.5, s: "Соус: используй половину ванночки (5 г) или выбери сметанно-чесночный" },
-      { i: "🍬", n: "Жвачка с сахаром", g: 9.8, s: "Жвачка: жуй 1–2 подушечки за раз, а не полпачки — или возьми без сахара" },
+      { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, s: "Энергетик: выпей половину или замени на зелёный чай с лимоном" },
+      { i: "🥤", n: "Газировка сладкая (0,5 л)", g: 53.0, s: "Газировка: выпей половину бутылки (0,25 л) вместо целой или возьми версию Zero (0 г)" },
+      { i: "🧃", n: "Холодный чай наподобие Lipton (0,5 л)", g: 34.5, s: "Холодный чай: растяни бутылку на два раза или завари каркаде с мятой (0 г)" },
+      { i: "🥛", n: "Йогурт питьевой (260 г)", g: 28.6, s: "Йогурт питьевой: возьми белый без добавок и добавь свежий банан или ягоды" },
+      { i: "🍎", n: "Сок пакетированный (0,2 л)", g: 22.0, s: "Сок: разбавь водой 1:1 или съешь целое яблоко — клетчатка замедлит сахар" },
+      { i: "🌾", n: "Злаковый батончик (50 г)", g: 17.5, s: "Злаковый батончик: раздели пополам (8,7 г) или выбери вариант без сахара" },
+      { i: "🧀", n: "Глазированный сырок (50 г)", g: 16.5, s: "Сырок: съешь 1 штуку вместо двух или замени на мягкий творожок без добавок" },
       { i: "🍅", n: "Кетчуп (2 ложки)", g: 7.2, s: "Кетчуп: положи 1 чайную ложку вместо двух столовых или томатную пасту" },
-      { i: "💪", n: "Протеиновый батончик", g: 1.5, s: "Протеиновый батончик: отличная замена шоколадкам — всего 1,5 г сахара!" },
+      { i: "💪", n: "Протеиновый батончик (60 г)", g: 1.5, s: "Протеиновый батончик: отличная замена сладостям — всего 1,5 г сахара!" },
       { i: "🍶", n: "Творожок без добавок", g: 0.0, s: "Творожок: идеальный перекус — много белка и 0 г добавленного сахара!" },
-      { i: "💧", n: "Вода / Кола Zero", g: 0.0, s: "Вода / Zero: отличный выбор без скачков глюкозы в крови!" }
+      { i: "🍌", n: "Банан или яблоко (1 шт.)", g: 0.0, s: "Банан / яблоко: природная сладость с клетчаткой — 0 г добавленного сахара!" },
+      { i: "💧", n: "Вода / Напиток Zero", g: 0.0, s: "Вода / Zero: отличный выбор без скачков глюкозы в крови!" }
     ];
     let tot = 0, mult = 1, tips = [];
     const gr = document.getElementById("grid");
