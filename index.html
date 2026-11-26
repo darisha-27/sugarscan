@@ -6,48 +6,52 @@
   <title>SugarScan 🧊</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", -apple-system, Arial, sans-serif; }
-    body { background: #f1f5f9; color: #0f172a; padding: 14px 12px 40px; }
+    body { background: #e0f2fe; color: #0f172a; padding: 14px 12px 45px; min-height: 100vh; }
     .box { max-width: 600px; margin: 0 auto; }
-    header { text-align: center; padding: 4px 0 12px; }
-    h1 { font-size: 24px; font-weight: 900; }
-    .lead { font-size: 13px; color: #64748b; }
-    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #fff; padding: 5px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 12px; }
-    .tab { background: transparent; border: none; padding: 9px 4px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; color: #64748b; }
-    .tab.active { background: #0f172a; color: #fff; }
+    header { background: #ffffff; border-radius: 20px; padding: 14px 16px; text-align: center; box-shadow: 0 4px 12px rgba(3, 105, 161, 0.08); margin-bottom: 12px; border-bottom: 3px solid #0284c7; }
+    h1 { font-size: 25px; font-weight: 900; color: #0c4a6e; }
+    .lead { font-size: 13px; color: #0369a1; font-weight: 600; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 16px; margin-bottom: 12px; }
+    .tab { background: transparent; border: none; padding: 9px 4px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: #0369a1; }
+    .tab.active { background: #0284c7; color: #fff; box-shadow: 0 3px 8px rgba(2,132,199,0.25); }
     .sec { display: none; }
     .sec.active { display: block; }
-    .panel { background: #fff; border: 1px solid #cbd5e1; border-radius: 18px; padding: 14px 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07); margin-bottom: 12px; }
+    .panel { background: #fff; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(3, 105, 161, 0.12); margin-bottom: 12px; }
     .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-    .big { font-size: 28px; font-weight: 800; }
-    .cubes-txt { font-size: 14px; font-weight: 700; color: #0284c7; background: #f0f9ff; padding: 4px 10px; border-radius: 8px; }
-    .cubes-vis { font-size: 14px; font-weight: 600; color: #64748b; min-height: 22px; margin: 4px 0 8px; }
-    .line { height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+    .big { font-size: 28px; font-weight: 900; }
+    .cubes-txt { font-size: 14px; font-weight: 800; color: #0284c7; background: #f0f9ff; padding: 4px 10px; border-radius: 8px; }
+    .cubes-vis { font-size: 14px; font-weight: 600; color: #475569; min-height: 22px; margin: 4px 0 8px; }
+    .line { height: 9px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
     .fill { height: 100%; width: 0%; background: #10b981; transition: 0.3s; }
     .status { font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .swap-tip { margin-top: 8px; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; font-size: 12px; font-weight: 700; color: #047857; display: none; }
     .reset { background: #fee2e2; color: #dc2626; border: none; padding: 5px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
-    .custom-bar { background: #fff; border: 1px solid #cbd5e1; border-radius: 14px; padding: 8px; display: flex; gap: 8px; margin-bottom: 12px; }
-    .custom-bar input { flex: 1; border: none; padding: 6px 10px; outline: none; font-size: 14px; min-width: 0; }
-    .grid { display: flex; flex-direction: column; gap: 6px; }
-    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; user-select: none; }
-    .card:active { transform: scale(0.98); border-color: #0284c7; }
+    .calc-box { background: #fff; border-radius: 16px; padding: 12px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
+    .calc-title { font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; }
+    .calc-row input { width: 100%; border: 1px solid #cbd5e1; border-radius: 10px; padding: 8px 10px; font-size: 13px; outline: none; background: #f8fafc; }
+    .grid { display: flex; flex-direction: column; gap: 7px; }
+    .card { background: #fff; border-radius: 14px; padding: 11px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(3, 105, 161, 0.06); cursor: pointer; transition: 0.15s; user-select: none; }
+    .card:active { transform: scale(0.98); background: #f0f9ff; }
     .ico { font-size: 22px; }
     .name { font-size: 14px; font-weight: 700; flex: 1; }
-    .val { font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
-    .white-box { background: #fff; border-radius: 16px; padding: 14px 16px; margin-bottom: 8px; border: 1px solid #e2e8f0; }
+    .val { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 8px; white-space: nowrap; }
+    .white-box { background: #fff; border-radius: 18px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
     .opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 1px solid #cbd5e1; padding: 11px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .opt.ok { background: #dcfce7; border-color: #10b981; color: #065f46; }
-    .opt.no { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+    .opt.ok { background: #dcfce7; border-color: #10b981; color: #065f46; }.opt.no { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
     .exp { margin-top: 8px; padding: 8px 12px; background: #f0f9ff; border-left: 3px solid #0284c7; border-radius: 6px; font-size: 13px; color: #0c4a6e; display: none; }
     .add-btn { background: #0284c7; color: #fff; border: none; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
+    footer { text-align: center; font-size: 11px; color: #0369a1; opacity: 0.85; margin-top: 20px; font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="box">
     <header>
       <h1>SugarScan 🧊</h1>
-      <p class="lead">Лимит ВОЗ: <b>25 г (5,5 кубиков)</b> в день</p>
-    </header><div class="tabs">
+      <p class="lead">Норма ВОЗ: <b>25 г (5,5 кубиков)</b> в день</p>
+    </header>
+
+    <div class="tabs">
       <button class="tab active" onclick="go('s1', this)">🧮 Счётчик</button>
       <button class="tab" onclick="go('s2', this)">⚔️ Квиз</button>
       <button class="tab" onclick="go('s3', this)">🕵️ Ловушки</button>
@@ -59,17 +63,22 @@
           <span class="big" id="g">0 г</span>
           <span class="cubes-txt" id="c">0 кубиков 🧊</span>
         </div>
-        <div class="cubes-vis" id="vis">👇 Выбери продукты ниже</div>
+        <div class="cubes-vis" id="vis">👇 Нажми на то, что ешь или пьёшь ниже</div>
         <div class="line"><div class="fill" id="bar"></div></div>
         <div class="status">
           <span id="msg" style="color:#059669;">✅ 0% от нормы</span>
           <button class="reset" onclick="clr()">Сброс</button>
         </div>
+        <div class="swap-tip" id="swap"></div>
       </div>
 
-      <div class="custom-bar">
-        <input type="number" id="customG" placeholder="Граммы сахара с этикетки..." step="0.1" min="0" />
-        <button class="add-btn" onclick="addCustom()">+ Добавить</button>
+      <div class="calc-box">
+        <div class="calc-title">Посчитать свою пачку по этикетке:</div>
+        <div class="calc-row">
+          <input type="number" id="c100" placeholder="Сахар на 100г" step="0.1" min="0" />
+          <input type="number" id="cWeight" placeholder="Вес порции, г" step="1" min="0" />
+          <button class="add-btn" onclick="addPack()">+</button>
+        </div>
       </div>
 
       <div class="grid" id="grid"></div>
@@ -83,48 +92,58 @@
       <details class="white-box" style="cursor:pointer;"><summary style="font-weight:700;color:#0369a1;">🥤 Глюкозно-фруктозный сироп</summary><p style="font-size:13px;color:#475569;margin-top:6px;">В газировке и соусах. Блокирует чувство сытости.</p></details>
       <details class="white-box" style="cursor:pointer;"><summary style="font-weight:700;color:#0369a1;">🍎 Концентрированный сок</summary><p style="font-size:13px;color:#475569;margin-top:6px;">Выпаренный сахарный сироп без клетчатки.</p></details>
       <details class="white-box" style="cursor:pointer;"><summary style="font-weight:700;color:#0369a1;">🧪 Декстроза, мальтоза, патока</summary><p style="font-size:13px;color:#475569;margin-top:6px;">Скрытые названия сахара на этикетках.</p></details>
-    </div><footer>Кочеткова Дарина, 10 «Б» • СОШ № 11, г. Бердск • 2026–2027</footer>
+    </div>
+
+    <footer>Автор: Кочеткова Дарина, 10 «Б» • СОШ № 11, г. Бердск • 2026–2027</footer>
   </div>
 
-  <script>
-    const food = [
-      { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4 }, { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0 },
-      { i: "🧃", n: "Чай Lipton (0,5 л)", g: 34.5 }, { i: "🥛", n: "Йогурт сладкий", g: 28.6 },
-      { i: "🍫", n: "Snickers", g: 25.8 }, { i: "🍎", n: "Сок яблочный (0,2 л)", g: 22.0 },
-      { i: "🌾", n: "Батончик Corny Big", g: 17.5 }, { i: "🧀", n: "Глазированный сырок", g: 16.5 },
-      { i: "🥣", n: "Гранола «Фитнес»", g: 15.2 }, { i: "💪", n: "Протеиновый батончик", g: 14.0 },
-      { i: "🥫", n: "Соус кисло-сладкий", g: 10.5 }, { i: "🍬", n: "Жвачка с сахаром", g: 9.8 },
-      { i: "🍅", n: "Кетчуп (2 ложки)", g: 7.2 }, { i: "🍶", n: "Творожок без добавок", g: 0.0 },
-      { i: "💧", n: "Вода / Кола Zero", g: 0.0 }
+  <script>const food = [
+      { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, s: "Выпей только половину банки (29 г) или замени на зелёный чай с лимоном" },
+      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, s: "Возьми маленькую баночку 0,33 л вместо 0,5 л или выбери Колу Zero (0 г)" },
+      { i: "🧃", n: "Чай Lipton (0,5 л)", g: 34.5, s: "Растяни бутылку на два раза или завари домашний чай каркаде с мятой (0 г)" },
+      { i: "🥛", n: "Йогурт сладкий", g: 28.6, s: "Возьми белый йогурт без добавок и покроши туда свежий банан или ягоды" },
+      { i: "🍫", n: "Snickers", g: 25.8, s: "Съешь ровно половину (1 батончик из двойного) или замени на горсть арахиса" },
+      { i: "🍎", n: "Сок яблочный (0,2 л)", g: 22.0, s: "Разбавь сок водой 1:1 или съешь целое яблоко — клетчатка замедлит сахар" },
+      { i: "🌾", n: "Батончик Corny Big", g: 17.5, s: "Раздели батончик пополам (8,7 г) или выбери злаковый батончик без сахара" },
+      { i: "🧀", n: "Глазированный сырок", g: 16.5, s: "Съешь 1 сырок вместо двух или замени на мягкий творожок 5% без добавок" },
+      { i: "🥣", n: "Гранола «Фитнес»", g: 15.2, s: "Смешай 50/50 с обычными овсяными хлопьями — сахара станет в 2 раза меньше" },
+      { i: "🥫", n: "Соус кисло-сладкий", g: 10.5, s: "Используй только половину ванночки (5 г) или выбери сметанно-чесночный соус" },
+      { i: "🍬", n: "Жвачка с сахаром", g: 9.8, s: "Жуй по 1–2 подушечки за раз, а не полпачки — или возьми жвачку без сахара" },
+      { i: "🍅", n: "Кетчуп (2 ложки)", g: 7.2, s: "Положи 1 чайную ложку вместо двух столовых или замени на томатную пасту" },
+      { i: "💪", n: "Протеиновый батончик", g: 1.5, s: "Отличная замена обычным шоколадкам — всего 1,5 г сахара (0,3 кубика)!" },
+      { i: "🍶", n: "Творожок без добавок", g: 0.0, s: "Идеальный перекус — много белка и 0 г добавленного сахара!" },
+      { i: "💧", n: "Вода / Кола Zero", g: 0.0, s: "Отличный выбор: утоляет жажду без скачков глюкозы в крови!" }
     ];
     let tot = 0;
     const gr = document.getElementById("grid");
     food.forEach(f => {
-      const bg = f.g === 0 ? "#dcfce7" : f.g >= 25 ? "#ffe4e6" : "#fef3c7";
-      const tc = f.g === 0 ? "#15803d" : f.g >= 25 ? "#be123c" : "#b45309";
-      gr.innerHTML += `<div class="card" onclick="add(${f.g}, '${f.n}')"><span class="ico">${f.i}</span><span class="name">${f.n}</span><span class="val" style="background:${bg}; color:${tc};">+${f.g} г (${(f.g/4.5).toFixed(1)} 🧊)</span></div>`;
+      const bg = f.g <= 1.5 ? "#dcfce7" : f.g >= 25 ? "#ffe4e6" : "#fef3c7";
+      const tc = f.g <= 1.5 ? "#15803d" : f.g >= 25 ? "#be123c" : "#b45309";
+      gr.innerHTML += `<div class="card" onclick="add(${f.g}, '${f.s}')"><span class="ico">${f.i}</span><span class="name">${f.n}</span><span class="val" style="background:${bg}; color:${tc};">+${f.g} г (${(f.g/4.5).toFixed(1)} 🧊)</span></div>`;
     });
-    function add(v, t) {
+    function add(v, sw) {
       tot = +(tot + v).toFixed(1);
       upd();
-      if (v === 0) document.getElementById("msg").innerText = `🌟 ${t}: 0 г сахара!`;
+      const sBox = document.getElementById("swap");
+      if (sw) { sBox.style.display = "block"; sBox.innerText = "💡 Совет: " + sw; }
     }
-    function addCustom() {
-      const inp = document.getElementById("customG"), val = parseFloat(inp.value);
-      if (val > 0) { add(val, "Свой продукт"); inp.value = ""; }
+    function addPack() {
+      const a = parseFloat(document.getElementById("c100").value), w = parseFloat(document.getElementById("cWeight").value);
+      if (a > 0 && w > 0) {
+        add(+(a * w / 100).toFixed(1), "Выбирай продукты до 5 г сахара на 100 г или уменьши порцию");
+        document.getElementById("c100").value = ""; document.getElementById("cWeight").value = "";
+      }
     }
-    function clr() { tot = 0; upd(); }
+    function clr() { tot = 0; upd(); document.getElementById("swap").style.display = "none"; }
     function upd() {
       const cn = +(tot / 4.5).toFixed(1), cc = Math.round(tot / 4.5);
       document.getElementById("g").innerText = tot + " г";
       document.getElementById("c").innerText = cn + " кубиков 🧊";
-      const vEl = document.getElementById("vis");
-      vEl.innerText = cc > 0 ? "🧊".repeat(Math.min(cc, 28)) : "👇 Выбери продукты ниже";
+      document.getElementById("vis").innerText = cc > 0 ? "🧊".repeat(Math.min(cc, 28)) : "👇 Нажми на то, что ешь или пьёшь ниже";
       const b = document.getElementById("bar"), m = document.getElementById("msg");
       b.style.width = Math.min((tot / 25) * 100, 100) + "%";
       if (tot === 0) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ 0% от нормы"; }
-      else if (tot <= 25) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = `✅ В норме (${Math.round((tot/25)*100)}%)`; }
-      else if (tot <= 50) { b.style.background = "#f59e0b"; m.style.color = "#d97706"; m.innerText = `⚠️ Перебор (${Math.round((tot/25)*100)}%)`; }
+      else if (tot <= 25) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = `✅ В норме (${Math.round((tot/25)*100)}%)`; }else if (tot <= 50) { b.style.background = "#f59e0b"; m.style.color = "#d97706"; m.innerText = `⚠️ Перебор (${Math.round((tot/25)*100)}%)`; }
       else { b.style.background = "#ef4444"; m.style.color = "#dc2626"; m.innerText = `🚨 Опасно (${Math.round((tot/25)*100)}%)`; }
     }
     function go(id, el) {
@@ -141,7 +160,8 @@
       { q: "Дневной лимит сахара по ВОЗ?", o: ["🧊 До 5,5 кубиков (25 г)", "🧊 До 15 кубиков (70 г)"], a: 0, e: "Безопасная норма ВОЗ — 25 г в сутки." }
     ];
     let qi = 0, sc = 0;
-    function showQ() {const qz = document.getElementById("quiz");
+    function showQ() {
+      const qz = document.getElementById("quiz");
       if (qi >= qs.length) {
         const rank = sc === 5 ? "🏆 Детектив этикеток!" : sc >= 3 ? "🕵️ Охотник за сахаром!" : "🍬 Новичок";
         qz.innerHTML = `<div style="text-align:center;padding:10px 0;"><div style="font-size:36px;margin-bottom:6px;">🎉</div><h2 style="font-size:18px;margin-bottom:4px;">${rank}</h2><p style="font-size:14px;margin-bottom:12px;">Счёт: <b>${sc} из ${qs.length}</b></p><button class="add-btn" onclick="qi=0;sc=0;showQ()">Ещё раз 🔄</button></div>`;
@@ -164,7 +184,3 @@
   </script>
 </body>
 </html>
-
-    
-
-
