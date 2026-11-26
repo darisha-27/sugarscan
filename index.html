@@ -3,75 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SugarScan — Навигатор скрытого сахара</title>
+  <title>SugarScan — Сколько сахара ты съел сегодня?</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", -apple-system, Arial, sans-serif; }
-    body { background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%); color: #1e293b; padding: 18px 12px 50px; min-height: 100vh; }
-    .box { max-width: 740px; margin: 0 auto; }
-    header { background: #ffffff; border-radius: 24px; padding: 24px 20px; text-align: center; box-shadow: 0 8px 25px rgba(14, 116, 144, 0.07); margin-bottom: 18px; border: 1px solid #e0f2fe; }
-    .badge { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px; }
-    h1 { font-size: 28px; color: #0f172a; margin-bottom: 6px; letter-spacing: -0.5px; }
-    .lead { color: #475569; font-size: 15px; }
-    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #ffffff; padding: 6px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-bottom: 18px; border: 1px solid #e2e8f0; }
-    .tab { background: transparent; border: none; padding: 12px 6px; border-radius: 13px; font-size: 14px; font-weight: 700; cursor: pointer; color: #64748b; transition: 0.2s; }
-    .tab.active { background: #0284c7; color: #ffffff; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25); }
-    .sec { display: none; }
+    body { background: #f8fafc; color: #0f172a; padding: 14px 12px 50px; min-height: 100vh; }
+    .box { max-width: 680px; margin: 0 auto; }
+    header { background: radial-gradient(circle at top right, #38bdf8, #1d4ed8); color: #ffffff; border-radius: 26px; padding: 24px 20px; text-align: center; box-shadow: 0 12px 30px rgba(29, 78, 216, 0.25); margin-bottom: 14px; }
+    .pill { display: inline-block; background: rgba(255,255,255,0.22); font-size: 11px; font-weight: 800; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    h1 { font-size: 27px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; line-height: 1.15; }
+    .lead { font-size: 14px; opacity: 0.95; max-width: 480px; margin: 0 auto; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #ffffff; padding: 6px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); margin-bottom: 14px; border: 1px solid #e2e8f0; }
+    .tab { background: transparent; border: none; padding: 11px 4px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; color: #64748b; transition: 0.2s; }
+    .tab.active { background: #0f172a; color: #ffffff; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.22); }
+    .sec { display: none; animation: pop 0.25s ease; }
     .sec.active { display: block; }
-    .panel { background: #ffffff; border: 2px solid #bae6fd; border-radius: 22px; padding: 18px 20px; position: sticky; top: 10px; z-index: 10; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1); margin-bottom: 18px; }
-    .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
-    .big { font-size: 30px; font-weight: 800; color: #0f172a; }
-    .cubes-txt { font-size: 17px; font-weight: 700; color: #0284c7; }
-    .cubes-vis { font-size: 18px; min-height: 26px; margin-bottom: 8px; word-break: break-all; }
-    .line { height: 12px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
-    .fill { height: 100%; width: 0%; background: #10b981; transition: 0.3s; }
-    .status { font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .reset { background: #fee2e2; color: #dc2626; border: none; padding: 6px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
-    .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 3px 10px rgba(0,0,0,0.03); transition: 0.15s; }
-    .card:hover { border-color: #38bdf8; transform: translateY(-2px); }
-    .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .ico { font-size: 26px; background: #f0f9ff; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; flex-shrink: 0; }
-    .name { font-size: 14px; font-weight: 700; color: #0f172a; line-height: 1.3; }
-    .mask { font-size: 12px; color: #64748b; margin-bottom: 6px; }
-    .swap { font-size: 12px; color: #047857; background: #ecfdf5; padding: 6px 8px; border-radius: 8px; margin-bottom: 10px; }
-    .card-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 8px; }
-    .val { font-size: 14px; font-weight: 800; color: #0f172a; }
-    .add-btn { background: #0284c7; color: #fff; border: none; padding: 7px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .add-btn:active { transform: scale(0.95); }.white-box { background: #ffffff; border-radius: 20px; padding: 18px 20px; margin-bottom: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 2px solid #e2e8f0; padding: 13px 15px; border-radius: 14px; margin-bottom: 8px; font-size: 14px; font-weight: 700; cursor: pointer; color: #1e293b; }
+    @keyframes pop { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    .panel { background: #ffffff; border: 2px solid #cbd5e1; border-radius: 24px; padding: 16px 18px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09); margin-bottom: 14px; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .big { font-size: 32px; font-weight: 900; color: #0f172a; }
+    .cubes-txt { font-size: 16px; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 4px 10px; border-radius: 10px; }
+    .cubes-vis { font-size: 16px; font-weight: 700; color: #334155; min-height: 26px; margin: 6px 0 8px; }
+    .line { height: 14px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+    .fill { height: 100%; width: 0%; background: #10b981; transition: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .status { font-size: 13px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .reset { background: #fee2e2; color: #dc2626; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 12px; }
+    .custom-bar { background: #ffffff; border: 2px dashed #94a3b8; border-radius: 18px; padding: 8px 10px 8px 14px; display: flex; gap: 8px; margin-bottom: 14px; }
+    .custom-bar input { flex: 1; border: none; outline: none; font-size: 14px; background: transparent; min-width: 0; font-weight: 600; }
+    .hint { font-size: 13px; font-weight: 800; color: #334155; margin-bottom: 10px; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .card { border: 2px solid transparent; border-radius: 20px; padding: 14px 10px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.04); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; user-select: none; position: relative; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.09); }
+    .card:active { transform: scale(0.93); }.tag-mini { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 900; padding: 2px 6px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .ico { font-size: 36px; margin: 4px 0 6px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1)); }
+    .name { font-size: 13px; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 8px; }
+    .val { font-size: 12px; font-weight: 800; padding: 5px 10px; border-radius: 10px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+    .white-box { background: #ffffff; border-radius: 20px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
+    .opt { display: block; width: 100%; text-align: left; background: #f8fafc; border: 2px solid #e2e8f0; padding: 13px 14px; border-radius: 14px; margin-bottom: 8px; font-size: 14px; font-weight: 700; cursor: pointer; color: #1e293b; transition: 0.15s; }
+    .opt:hover { border-color: #38bdf8; background: #f0f9ff; }
     .opt.ok { background: #dcfce7; border-color: #10b981; color: #065f46; }
     .opt.no { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
-    .exp { margin-top: 10px; padding: 12px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 8px; font-size: 14px; color: #0c4a6e; display: none; }
-    footer { text-align: center; font-size: 12px; color: #64748b; margin-top: 26px; }
+    .exp { margin-top: 8px; padding: 11px 13px; background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 8px; font-size: 13px; color: #1e3a8a; display: none; font-weight: 600; }
+    .add-btn { background: #2563eb; color: #fff; border: none; padding: 9px 15px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; }
+    footer { text-align: center; font-size: 11px; color: #64748b; margin-top: 26px; }
   </style>
 </head>
 <body>
   <div class="box">
     <header>
-      <div class="badge">ИИП по биологии • МБОУ СОШ № 11 • 10 «Б» класс</div>
-      <h1>SugarScan — Детектор скрытого сахара 🧊</h1>
-      <p class="lead">Выбери привычные перекусы и проверь, укладываешься ли ты в норму ВОЗ — <b>25 г (5,5 кубиков) в день</b>.</p>
+      <div class="pill">⚡ Проверка за 10 секунд • ИИП 10 «Б»</div>
+      <h1>Сколько кусков сахара спрятано в твоём дне? 🧊</h1>
+      <p class="lead">Лимит ВОЗ — всего <b>25 г (5,5 кубиков)</b>. Проверь, не перебираешь ли ты за день!</p>
     </header>
 
     <div class="tabs">
       <button class="tab active" onclick="go('s1', this)">🧮 Калькулятор</button>
       <button class="tab" onclick="go('s2', this)">⚔️ Батл-квиз</button>
-      <button class="tab" onclick="go('s3', this)">🕵️ Имена сахара</button>
+      <button class="tab" onclick="go('s3', this)">🕵️ Ловушки</button>
     </div>
 
     <div id="s1" class="sec active">
       <div class="panel">
         <div class="row">
-          <div>Съедено за день: <span class="big" id="g">0 г</span></div>
-          <div class="cubes-txt" id="c">0 кубиков</div>
+          <div>Твой итог: <span class="big" id="g">0 г</span></div>
+          <div class="cubes-txt" id="c">0 кубиков 🧊</div>
         </div>
-        <div class="cubes-vis" id="vis">Нажимай «+ Добавить» на карточках ниже 👇</div>
+        <div class="cubes-vis" id="vis">👇 Нажми на то, что ты ешь или пьёшь ниже</div>
         <div class="line"><div class="fill" id="bar"></div></div>
         <div class="status">
-          <span id="msg" style="color:#059669;">✅ Пока 0 г — отличный старт</span>
+          <span id="msg" style="color:#059669;">✅ 0% от дневной нормы ВОЗ</span>
           <button class="reset" onclick="clr()">Сбросить</button>
         </div>
       </div>
+
+      <div class="custom-bar">
+        <input type="number" id="customG" placeholder="✏️ Впиши граммы сахара с любой этикетки..." step="0.1" min="0" />
+        <button class="add-btn" onclick="addCustom()">+ Добавить</button>
+      </div>
+
+      <div class="hint">🔥 Популярные продукты (нажми на карточку):</div>
       <div class="grid" id="grid"></div>
     </div>
 
@@ -80,75 +89,82 @@
     </div>
 
     <div id="s3" class="sec">
-      <p style="font-size:14px; color:#475569; margin-bottom:12px; text-align:center;">Нажми на любое название с этикетки, чтобы узнать, где оно прячется 👇</p>
-
-      <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">⚡ 1. Мальтодекстрин <span style="float:right; font-size:12px; background:#fee2e2; color:#dc2626; padding:2px 8px; border-radius:99px;">Опаснее сахара</span></summary>
-        <p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> «фитнес»-батончики, спортивное питание, сухие завтраки.<br><b>В чём подвох:</b> поднимает глюкозу в крови даже быстрее, чем чистый рафинад, вызывая резкую сонливость на уроках.</p>
+      <p class="hint">Нажми на слово с этикетки, чтобы раскрыть секрет 👇</p>
+      <details class="white-box" style="cursor:pointer; border-left:5px solid #e11d48;">
+        <summary style="font-weight:800; color:#0f172a; font-size:15px; list-style:none;">⚡ 1. Мальтодекстрин <span style="float:right; font-size:11px; background:#ffe4e6; color:#e11d48; padding:3px 9px; border-radius:99px;">Опаснее сахара</span></summary>
+        <p style="font-size:13px; color:#334155; margin-top:8px;">Прячется в «фитнес»-батончиках. Поднимает сахар в крови даже быстрее обычного рафинада.</p>
       </details>
-
-      <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🍯 2. Сироп топинамбура, агавы и мёд <span style="float:right; font-size:12px; background:#fef3c7; color:#d97706; padding:2px 8px; border-radius:99px;">Псевдо-ПП</span></summary>
-        <p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> эко-десерты, ПП-батончики, гранола.<br><b>В чём подвох:</b> содержат до 75% свободной фруктозы, которая перерабатывается печенью и при избытке превращается в жиры.</p>
+      <details class="white-box" style="cursor:pointer; border-left:5px solid #d97706;"><summary style="font-weight:800; color:#0f172a; font-size:15px; list-style:none;">🍯 2. Сироп топинамбура и мёд <span style="float:right; font-size:11px; background:#fef3c7; color:#d97706; padding:3px 9px; border-radius:99px;">Псевдо-ПП</span></summary>
+        <p style="font-size:13px; color:#334155; margin-top:8px;">Содержат до 75% фруктозы, которая при избытке перерабатывается печенью в жиры.</p>
       </details>
-
-      <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🥤 3. Глюкозно-фруктозный сироп (ГФС) <span style="float:right; font-size:12px; background:#fee2e2; color:#dc2626; padding:2px 8px; border-radius:99px;">Усилитель аппетита</span></summary><p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> газировка, кетчуп, кисло-сладкий соус, выпечка.<br><b>В чём подвох:</b> не включает гормон сытости (лептин) — можно выпить литр напитка и всё равно хотеть есть.</p>
+      <details class="white-box" style="cursor:pointer; border-left:5px solid #e11d48;">
+        <summary style="font-weight:800; color:#0f172a; font-size:15px; list-style:none;">🥤 3. Глюкозно-фруктозный сироп <span style="float:right; font-size:11px; background:#ffe4e6; color:#e11d48; padding:3px 9px; border-radius:99px;">Усилитель аппетита</span></summary>
+        <p style="font-size:13px; color:#334155; margin-top:8px;">Прячется в газировке и соусах. Не включает гормон сытости, из-за чего легко переесть.</p>
       </details>
-
-      <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🍎 4. Концентрированный сок <span style="float:right; font-size:12px; background:#fef3c7; color:#d97706; padding:2px 8px; border-radius:99px;">«Без сахара»</span></summary>
-        <p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> пакетированные соки, фруктовые батончики, мармелад.<br><b>В чём подвох:</b> это выпаренный сахарный сироп без полезной клетчатки целого яблока или винограда.</p>
+      <details class="white-box" style="cursor:pointer; border-left:5px solid #d97706;">
+        <summary style="font-weight:800; color:#0f172a; font-size:15px; list-style:none;">🍎 4. Концентрированный сок <span style="float:right; font-size:11px; background:#fef3c7; color:#d97706; padding:3px 9px; border-radius:99px;">«Без сахара»</span></summary>
+        <p style="font-size:13px; color:#334155; margin-top:8px;">Выпаренный сахарный сироп без полезной клетчатки целого фрукта.</p>
       </details>
-
-      <details class="white-box" style="cursor:pointer;">
-        <summary style="font-weight:800; color:#0369a1; font-size:16px; list-style:none;">🧪 5. Декстроза, мальтоза, патока <span style="float:right; font-size:12px; background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:99px;">Химические имена</span></summary>
-        <p style="font-size:14px; color:#334155; margin-top:10px; border-top:1px solid #f1f5f9; padding-top:8px;"><b>Где прячется:</b> глазированные сырки, печенье, готовые каши.<br><b>В чём подвох:</b> научные названия простых сахаров. Если они стоят в первой тройке состава — перед вами десерт.</p>
+      <details class="white-box" style="cursor:pointer; border-left:5px solid #0284c7;">
+        <summary style="font-weight:800; color:#0f172a; font-size:15px; list-style:none;">🧪 5. Декстроза, мальтоза, патока <span style="float:right; font-size:11px; background:#e0f2fe; color:#0284c7; padding:3px 9px; border-radius:99px;">Химические имена</span></summary>
+        <p style="font-size:13px; color:#334155; margin-top:8px;">Научные названия простых сахаров на этикетке сырков и печенья.</p>
       </details>
     </div>
 
-    <footer>Автор: Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026–2027</footer>
+    <footer>Кочеткова Дарина (10 «Б»), МБОУ СОШ № 11, г. Бердск • 2026–2027</footer>
   </div>
 
   <script>
-    const food = [
-      { i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, m: "Сахар, глюкоза, мальтодекстрин", s: "Зелёный чай с лимоном (0 г)" },
-      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, m: "Сахар, сахарный колер", s: "Кола Zero или вода с мятой (0 г)" },{ i: "🧃", n: "Холодный чай Lipton (0,5 л)", g: 34.5, m: "Сахар, фруктоза, конц. сок", s: "Домашний чай каркаде (0 г)" },
-      { i: "🥛", n: "Йогурт питьевой (260 г)", g: 28.6, m: "Сахар, глюкозно-фруктозный сироп", s: "Белый греческий йогурт + банан (0 г)" },
-      { i: "🍫", n: "Батончик Snickers (50 г)", g: 25.8, m: "Сахар, глюкозный сироп", s: "Арахис + горький шоколад 85% (3 г)" },
-      { i: "🍎", n: "Яблочный сок (0,2 л)", g: 22.0, m: "Концентрированный сок", s: "Целое свежее яблоко (с клетчаткой)" },
-      { i: "🌾", n: "Батончик Corny Big (50 г)", g: 17.5, m: "ГФС, мёд, патока", s: "Батончик на стевии без сахара (1,5 г)" },
-      { i: "🧀", n: "Глазированный сырок (50 г)", g: 16.5, m: "Сахар, патока крахмальная", s: "Мягкий творожок 5% без добавок (0 г)" },
-      { i: "🥣", n: "Гранола «Фитнес» (60 г)", g: 15.2, m: "Патока, мёд, тростниковый сахар", s: "Овсянка с ягодами (2 г)" },
-      { i: "💪", n: "Протеин. батончик (60 г)", g: 14.0, m: "Мальтодекстрин, патока", s: "Батончик «0% added sugar» (1 г)" },
-      { i: "🥫", n: "Соус кисло-сладкий (25 г)", g: 10.5, m: "Сахар, глюкозно-фруктозный сироп", s: "Сметанно-чесночный соус (1 г)" },
-      { i: "🍬", n: "Жвачка с сахаром (14 г)", g: 9.8, m: "Сахар, глюкозный сироп", s: "Жвачка без сахара на ксилите/сорбите (0 г)" },
-      { i: "🍅", n: "Кетчуп (2 ст. ложки)", g: 7.2, m: "Сахар, модиф. крахмал", s: "Томатная паста со специями (0 г)" },
-      { i: "🍶", n: "Творожок без добавок (130 г)", g: 0.0, m: "Скрытого сахара нет", s: "Отличный перекус!" },
-      { i: "💧", n: "Вода / Газировка Zero (0,5 л)", g: 0.0, m: "Подсластители (0 ккал)", s: "Безопасная замена газировке" }
+    const food = [{ i: "⚡", n: "Энергетик (0,45 л)", g: 58.4, t: "Шок-доза" },
+      { i: "🥤", n: "Добрый Cola (0,5 л)", g: 53.0, t: "212% нормы" },
+      { i: "🧃", n: "Чай Lipton (0,5 л)", g: 34.5, t: "Ловушка" },
+      { i: "🥛", n: "Йогурт сладкий (260 г)", g: 28.6, t: "Скрытый" },
+      { i: "🍫", n: "Батончик Snickers", g: 25.8, t: "103% нормы" },
+      { i: "🍎", n: "Сок яблочный (0,2 л)", g: 22.0, t: "Без клетчатки" },
+      { i: "🌾", n: "Батончик Corny Big", g: 17.5, t: "Псевдо-ПП" },
+      { i: "🧀", n: "Глазированный сырок", g: 16.5, t: "Десерт" },
+      { i: "🥣", n: "Гранола «Фитнес»", g: 15.2, t: "Псевдо-ПП" },
+      { i: "💪", n: "Протеин. батончик", g: 14.0, t: "Мальтодекстрин" },
+      { i: "🥫", n: "Соус кисло-сладкий", g: 10.5, t: "Сюрприз" },
+      { i: "🍬", n: "Жвачка с сахаром", g: 9.8, t: "2+ кубика" },
+      { i: "🍅", n: "Кетчуп (2 ложки)", g: 7.2, t: "Скрытый" },
+      { i: "🍶", n: "Творожок без добавок", g: 0.0, t: "Супер" },
+      { i: "💧", n: "Вода / Кола Zero", g: 0.0, t: "0 ккал" }
     ];
     let tot = 0;
     const gr = document.getElementById("grid");
     food.forEach(f => {
-      gr.innerHTML += `<div class="card"><div><div class="card-head"><div class="ico">${f.i}</div><div class="name">${f.n}</div></div><div class="mask"><b>Маска:</b> ${f.m}</div><div class="swap">💡 <b>Замена:</b> ${f.s}</div></div><div class="card-foot"><span class="val">${f.g} г (≈ ${(f.g/4.5).toFixed(1)} 🧊)</span><button class="add-btn" onclick="add(${f.g})">+ Добавить</button></div></div>`;
+      const bg = f.g === 0 ? "#ecfdf5" : f.g >= 25 ? "#fff1f2" : "#fffbeb";
+      const bd = f.g === 0 ? "#6ee7b7" : f.g >= 25 ? "#fda4af" : "#fcd34d";
+      const tc = f.g === 0 ? "#059669" : f.g >= 25 ? "#e11d48" : "#d97706";
+      const tb = f.g === 0 ? "#d1fae5" : f.g >= 25 ? "#ffe4e6" : "#fef3c7";
+      gr.innerHTML += `<div class="card" style="background:${bg}; border-color:${bd};" onclick="add(${f.g}, '${f.n}')"><span class="tag-mini" style="background:${tb}; color:${tc};">${f.t}</span><div class="ico">${f.i}</div><div class="name">${f.n}</div><div class="val" style="color:${tc}; background:#ffffff;">+ ${f.g} г (${(f.g/4.5).toFixed(1)} 🧊)</div></div>`;
     });
-    function add(v) {
+    function add(v, title) {
       tot = +(tot + v).toFixed(1);
       upd();
-      if (v === 0) document.getElementById("msg").innerText = "🌟 Отличный выбор! В этом продукте 0 г сахара";
+      if (v === 0) document.getElementById("msg").innerText = `🌟 ${title}: 0 г сахара — отличный выбор!`;
+      else if (v >= 25) document.getElementById("msg").innerText = `😱 Ого! Одна порция «${title}» уже перекрыла норму дня!`;
+    }
+    function addCustom() {
+      const inp = document.getElementById("customG");
+      const val = parseFloat(inp.value);
+      if (val > 0) { add(val, "Свой продукт"); inp.value = ""; }
     }
     function clr() { tot = 0; upd(); }
     function upd() {
       const cn = +(tot / 4.5).toFixed(1), cc = Math.round(tot / 4.5);
       document.getElementById("g").innerText = tot + " г";
-      document.getElementById("c").innerText = cn + " кубиков";
-      document.getElementById("vis").innerText = cc > 0 ? "🧊".repeat(Math.min(cc, 28)) : "Нажимай «+ Добавить» на карточках ниже 👇";
+      document.getElementById("c").innerText = cn + " кубиков 🧊";
+      const vEl = document.getElementById("vis");
+      if (cc > 0) { vEl.style.fontSize = "20px"; vEl.innerText = "🧊".repeat(Math.min(cc, 28)); }
+      else { vEl.style.fontSize = "16px"; vEl.innerText = "👇 Нажми на то, что ты ешь или пьёшь ниже"; }
       const b = document.getElementById("bar"), m = document.getElementById("msg");
       b.style.width = Math.min((tot / 25) * 100, 100) + "%";
-      if (tot === 0) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ Пока 0 г — отличный старт"; }
-      else if (tot <= 25) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ В пределах безопасной нормы ВОЗ"; }
-      else if (tot <= 50) { b.style.background = "#f59e0b"; m.style.color = "#d97706"; m.innerText = "⚠️ Норма превышена! Возможна сонливость"; }
-      else { b.style.background = "#ef4444"; m.style.color = "#dc2626"; m.innerText = "🚨 Сильный перебор! Выбирай умные замены"; }
+      if (tot === 0) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = "✅ 0% от дневной нормы ВОЗ"; }
+      else if (tot <= 25) { b.style.background = "#10b981"; m.style.color = "#059669"; m.innerText = `✅ В норме (${Math.round((tot/25)*100)}% от лимита ВОЗ)`; }
+      else if (tot <= 50) { b.style.background = "#f59e0b"; m.style.color = "#d97706"; m.innerText = `⚠️ Перебор! Уже ${Math.round((tot/25)*100)}% от дневной нормы`; }
+      else { b.style.background = "#ef4444"; m.style.color = "#dc2626"; m.innerText = `🚨 Опасно! ${Math.round((tot/25)*100)}% от лимита — пора менять привычки`; }
     }
     function go(id, el) {
       document.querySelectorAll(".sec").forEach(s => s.classList.remove("active"));
@@ -156,10 +172,10 @@
       document.getElementById(id).classList.add("active");
       el.classList.add("active");
     }
-    const qs = [
-      { q: "⚔️ Битва 1: Где спрятано БОЛЬШЕ сахара?", o: ["🧀 Глазированный сырок (50 г)", "🧃 Бутылка холодного чая Lipton (0,5 л)"], a: 1, e: "В чае Lipton целых 34,5 г сахара (почти 8 кубиков!), а в сырке — 16,5 г." },{ q: "⚔️ Битва 2: Что сильнее поднимет сахар в крови?", o: ["🌾 «Фитнес»-батончик с мальтодекстрином", "🍬 Обычный кусочек рафинада"], a: 0, e: "У мальтодекстрина гликемический индекс выше, чем у чистого столового сахара!" },
+    const qs = [{ q: "⚔️ Битва 1: Где спрятано БОЛЬШЕ сахара?", o: ["🧀 Глазированный сырок (50 г)", "🧃 Бутылка чая Lipton (0,5 л)"], a: 1, e: "В чае Lipton целых 34,5 г сахара (почти 8 кубиков!), а в сырке — 16,5 г." },
+      { q: "⚔️ Битва 2: Что сильнее поднимет сахар в крови?", o: ["🌾 «Фитнес»-батончик с мальтодекстрином", "🍬 Обычный кусочек рафинада"], a: 0, e: "У мальтодекстрина гликемический индекс выше, чем у чистого столового сахара!" },
       { q: "🍯 Миф или правда: сироп топинамбура и мёд полезнее сахара для печени?", o: ["✅ Правда, это природные продукты", "❌ Миф! В них до 75% фруктозы, которая нагружает печень"], a: 1, e: "Свободная фруктоза перерабатывается печенью и при избытке превращается в жиры." },
-      { q: "🥫 Сюрприз в соусе: сколько кубиков сахара в одной ванночке кисло-сладкого соуса (25 г)?", o: ["🧊 Меньше половины кубика", "🧊🧊 Больше 2 кубиков сахара!"], a: 1, e: "В 25 г кисло-сладкого соуса целых 10,5 г сахара — почти половина дневной нормы." },
+      { q: "🥫 Сюрприз в соусе: сколько кубиков сахара в ванночке кисло-сладкого соуса (25 г)?", o: ["🧊 Меньше половины кубика", "🧊🧊 Больше 2 кубиков сахара!"], a: 1, e: "В 25 г кисло-сладкого соуса целых 10,5 г сахара — почти половина дневной нормы." },
       { q: "🎯 Финал: сколько кубиков сахара в день ВОЗ разрешает подростку без вреда?", o: ["🧊 До 5,5 кубиков (25 г)", "🧊 До 15 кубиков (70 г)"], a: 0, e: "Безопасный лимит ВОЗ — всего 25 г добавленного сахара в сутки." }
     ];
     let qi = 0, sc = 0;
@@ -167,13 +183,13 @@
       const qz = document.getElementById("quiz");
       if (qi >= qs.length) {
         const rank = sc === 5 ? "🏆 Легендарный детектив этикеток!" : sc >= 3 ? "🕵️ Опытный охотник за сахаром!" : "🍬 Новичок в мире этикеток";
-        qz.innerHTML = `<div style="text-align:center;padding:10px 0;"><div style="font-size:42px;margin-bottom:8px;">🎉</div><h2 style="margin-bottom:6px;">${rank}</h2><p style="font-size:16px;margin-bottom:16px;">Твой счёт: <b>${sc} из ${qs.length}</b></p><button class="add-btn" onclick="qi=0;sc=0;showQ()">Сыграть ещё раз 🔄</button></div>`;
+        qz.innerHTML = `<div style="text-align:center;padding:10px 0;"><div style="font-size:40px;margin-bottom:8px;">🎉</div><h2 style="margin-bottom:6px;font-size:20px;">${rank}</h2><p style="font-size:15px;margin-bottom:14px;">Твой счёт: <b>${sc} из ${qs.length}</b></p><button class="add-btn" onclick="qi=0;sc=0;showQ()">Сыграть ещё раз 🔄</button></div>`;
         return;
       }
       const c = qs[qi];
-      let h = `<div style="display:flex;justify-content:space-between;font-size:12px;color:#0284c7;font-weight:800;margin-bottom:8px;"><span>РАУНД ${qi+1} ИЗ ${qs.length}</span><span>Счёт: ${sc} ⭐</span></div><h3 style="margin-bottom:14px;font-size:17px;">${c.q}</h3>`;
+      let h = `<div style="display:flex;justify-content:space-between;font-size:12px;color:#2563eb;font-weight:800;margin-bottom:8px;"><span>РАУНД ${qi+1} ИЗ ${qs.length}</span><span>Счёт: ${sc} ⭐</span></div><h3 style="margin-bottom:12px;font-size:16px;">${c.q}</h3>`;
       c.o.forEach((t, idx) => { h += `<button class="opt" onclick="ans(${idx}, this)">${t}</button>`; });
-      h += `<div class="exp" id="exp">${c.e}</div><button class="add-btn" id="nx" style="display:none;margin-top:12px;width:100%;padding:12px;" onclick="qi++;showQ()">Дальше →</button>`;
+      h += `<div class="exp" id="exp">${c.e}</div><button class="add-btn" id="nx" style="display:none;margin-top:10px;width:100%;padding:11px;" onclick="qi++;showQ()">Дальше →</button>`;
       qz.innerHTML = h;
     }
     function ans(i, el) {
@@ -182,11 +198,9 @@
       else { el.classList.add("no"); document.querySelectorAll(".opt")[qs[qi].a].classList.add("ok"); }
       document.getElementById("exp").style.display = "block";
       document.getElementById("nx").style.display = "block";
-    }showQ();
+    }
+    showQ();
   </script>
 </body>
-</html>
-
-  </script>
-</body>
+  </html>
 </html>
