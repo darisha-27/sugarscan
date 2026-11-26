@@ -6,26 +6,28 @@
   <title>SugarScan 🧊</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", -apple-system, Arial, sans-serif; }
-    body { background: #e0f2fe; color: #0f172a; padding: 14px 12px 45px; min-height: 100vh; }
+   body { background: #f1f5f9; color: #0f172a; padding: 14px 12px 45px; min-height: 100vh; }
     .box { max-width: 600px; margin: 0 auto; }
-    header { background: #ffffff; border-radius: 20px; padding: 14px 16px; text-align: center; box-shadow: 0 4px 12px rgba(3, 105, 161, 0.08); margin-bottom: 12px; border-bottom: 3px solid #0284c7; }
-    h1 { font-size: 25px; font-weight: 900; color: #0c4a6e; }
-    .lead { font-size: 13px; color: #0369a1; font-weight: 600; }
-    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 16px; margin-bottom: 12px; }
-    .tab { background: transparent; border: none; padding: 9px 4px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: #0369a1; }
+    header { background: #ffffff; border-radius: 20px; padding: 14px 16px; text-align: center; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); margin-bottom: 12px; border-bottom: 3px solid #0284c7; }
+    h1 { font-size: 25px; font-weight: 900; color: #0f172a; }
+    .lead { font-size: 13px; color: #475569; font-weight: 600; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #e2e8f0; padding: 5px; border-radius: 16px; margin-bottom: 12px; }
+    .tab { background: transparent; border: none; padding: 9px 4px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: #475569; }
     .tab.active { background: #0284c7; color: #fff; box-shadow: 0 3px 8px rgba(2,132,199,0.25); }
     .sec { display: none; }
     .sec.active { display: block; }
-    .panel { background: #ede9fe; border: 2px solid #a78bfa; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.16); margin-bottom: 12px; }
-    .big { font-size: 28px; font-weight: 900; }
-    .cubes-txt { font-size: 14px; font-weight: 800; color: #0284c7; background: #f0f9ff; padding: 4px 10px; border-radius: 8px; }
-    .cubes-vis { font-size: 14px; font-weight: 600; color: #475569; min-height: 22px; margin: 4px 0 8px; }
-    .line { height: 9px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+    .panel { background: #1e293b; color: #ffffff; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22); margin-bottom: 12px; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .big { font-size: 28px; font-weight: 900; color: #ffffff; }
+    .cubes-txt { font-size: 14px; font-weight: 800; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 4px 10px; border-radius: 8px; }
+    .cubes-vis { font-size: 14px; font-weight: 600; color: #cbd5e1; min-height: 22px; margin: 4px 0 8px; }
+    .line { height: 9px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
     .fill { height: 100%; width: 0%; background: #10b981; transition: 0.3s; }
     .status { font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .status span { background: #ffffff; padding: 3px 9px; border-radius: 8px; }
     .swap-tip { margin-top: 8px; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; font-size: 12px; font-weight: 700; color: #047857; display: none; }
-    .reset { background: #fee2e2; color: #dc2626; border: none; padding: 5px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
-    .calc-box { background: #fefce8; border: 1.5px solid #fde047; border-radius: 16px; padding: 12px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(3,105,161,0.06); }
+    .reset { background: rgba(255,255,255,0.15); color: #ffffff; border: none; padding: 5px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
+    .calc-box { background: #ffffff; border: 1.5px dashed #94a3b8; border-radius: 16px; padding: 12px; margin-bottom: 12px; }
     .calc-title { font-size: 12px; font-weight: 800; color: #0c4a6e; margin-bottom: 8px; }
     .type-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 8px; }
     .t-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 4px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #475569; cursor: pointer; }
