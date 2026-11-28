@@ -137,9 +137,9 @@
       curCat = c;
       document.querySelectorAll(".calc-box .type-row:first-of-type .t-btn").forEach(b => b.classList.remove("on"));
       btn.classList.add("on");
-      document.getElementById("sb1").innerText = cats[c].lbl;
-      document.getElementById("sb2").innerText = cats[c].lbl;
-      document.getElementById("sb3").innerText = cats[c].lbl;
+      document.getElementById("sb1").innerText = cats[c].lbl.slice(0, 1);
+      document.getElementById("sb2").innerText = cats[c].lbl.slice(1, 2);
+      document.getElementById("sb3").innerText = cats[c].lbl.slice(2, 3);
       document.getElementById("cName").placeholder = cats[c].ph;
     }
     function setSize(idx, btn) {
@@ -150,8 +150,10 @@
     function addCustomItem() {
       const inp = document.getElementById("cName"), data = cats[curCat];
       const title = inp.value.trim() || "Свой продукт";
-      const res = +(data.g * data.m[curIdx]).toFixed(1);
-      add(res, `${title} (${data.lbl[curIdx]}, +${res} г): ${data.tip}`);
+      const multVal = Number(data.m.slice(curIdx, curIdx + 1));
+      const lblVal = String(data.lbl.slice(curIdx, curIdx + 1));
+      const res = +(data.g * multVal).toFixed(1);
+      add(res, `${title} (${lblVal}, +${res} г): ${data.tip}`);
       inp.value = "";
     }
     function add(v, sw) {
