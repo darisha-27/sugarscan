@@ -11,20 +11,19 @@
     header { background: #ffffff; border-radius: 20px; padding: 14px 16px; text-align: center; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); margin-bottom: 12px; border-bottom: 3px solid #0284c7; }
     h1 { font-size: 25px; font-weight: 900; color: #0f172a; }
     .lead { font-size: 13px; color: #475569; font-weight: 600; }
-    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #e2e8f0; padding: 5px; border-radius: 16px; margin-bottom: 12px; }
-    .tab { background: transparent; border: none; padding: 9px 4px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: #475569; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #e2e8f0; padding: 5px; border-radius: 16px; margin-bottom: 12px; }.tab { background: transparent; border: none; padding: 9px 4px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: #475569; }
     .tab.active { background: #0284c7; color: #fff; box-shadow: 0 3px 8px rgba(2,132,199,0.25); }
     .sec { display: none; }
     .sec.active { display: block; }
-    .panel { background: #1e293b; color: #ffffff; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22); margin-bottom: 12px; }.row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .panel { background: #1e293b; color: #ffffff; border-radius: 20px; padding: 16px; position: sticky; top: 8px; z-index: 10; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22); margin-bottom: 12px; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
     .big { font-size: 28px; font-weight: 900; color: #ffffff; }
     .cubes-txt { font-size: 14px; font-weight: 800; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 4px 10px; border-radius: 8px; }
     .cubes-vis { font-size: 14px; font-weight: 600; color: #cbd5e1; min-height: 22px; margin: 4px 0 8px; }
     .line { height: 9px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
     .fill { height: 100%; width: 0%; background: #10b981; transition: 0.3s; }
     .status { font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-    .status span { background: #ffffff; padding: 3px 9px; border-radius: 8px; }
-    .swap-tip { margin-top: 8px; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; font-size: 12px; font-weight: 700; color: #047857; display: none; }
+    .status span { background: #ffffff; padding: 3px 9px; border-radius: 8px; }.swap-tip { margin-top: 8px; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; font-size: 12px; font-weight: 700; color: #047857; display: none; }
     .reset { background: rgba(255,255,255,0.15); color: #ffffff; border: none; padding: 5px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
     .calc-box { background: #ffffff; border: 1.5px dashed #94a3b8; border-radius: 16px; padding: 12px; margin-bottom: 12px; }
     .calc-title { font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
@@ -127,8 +126,7 @@
       const bg = f.g <= 1.5 ? "#dcfce7" : f.g >= 25 ? "#ffe4e6" : "#fef3c7";
       const tc = f.g <= 1.5 ? "#15803d" : f.g >= 25 ? "#be123c" : "#b45309";
       gr.innerHTML += `<div class="card" onclick="add(${f.g}, '${f.s}')"><span class="ico">${f.i}</span><span class="name">${f.n}</span><span class="val" style="background:${bg}; color:${tc};">+${f.g} г (${(f.g/4.5).toFixed(1)} 🧊)</span></div>`;
-    });
-    const cats = {
+    });const cats = {
       drink: { g: 22, m: [1, 2.5, 5], lbl: ["Стакан", "Пол-литра (0,5)", "Литр (1 л)"], ph: "Например: Морс или Лимонад", tip: "старайся заменять сладкие напитки водой или версией Zero" },
       sweet: { g: 15, m:, lbl: ["1 штука", "Полпачки", "Вся пачка"], ph: "Например: Мармелад или Шоколад", tip: "попробуй уменьшить порцию или выбрать вариант без сахара" },
       bake:  { g: 6,  m:, lbl: ["1 штука", "Полпачки", "Вся пачка"], ph: "Например: Булочка или Хлеб", tip: "выбирай цельнозерновой хлеб или несладкую выпечку" },
@@ -139,9 +137,9 @@
       curCat = c;
       document.querySelectorAll(".calc-box .type-row:first-of-type .t-btn").forEach(b => b.classList.remove("on"));
       btn.classList.add("on");
-      document.getElementById("sb1").innerText = cats[c].lbl[0];
-      document.getElementById("sb2").innerText = cats[c].lbl[1];
-      document.getElementById("sb3").innerText = cats[c].lbl[2];
+      document.getElementById("sb1").innerText = cats[c].lbl;
+      document.getElementById("sb2").innerText = cats[c].lbl;
+      document.getElementById("sb3").innerText = cats[c].lbl;
       document.getElementById("cName").placeholder = cats[c].ph;
     }
     function setSize(idx, btn) {
@@ -155,7 +153,8 @@
       const res = +(data.g * data.m[curIdx]).toFixed(1);
       add(res, `${title} (${data.lbl[curIdx]}, +${res} г): ${data.tip}`);
       inp.value = "";
-    }function add(v, sw) {
+    }
+    function add(v, sw) {
       tot = +(tot + v).toFixed(1);
       upd();
       const sBox = document.getElementById("swap");
@@ -164,8 +163,7 @@
         sBox.style.display = "block";
         sBox.innerHTML = tips.map(t => "• " + t).join("<br>");
       }
-    }
-    function clr() {
+    }function clr() {
       tot = 0; tips = []; upd();
       const sBox = document.getElementById("swap");
       sBox.style.display = "none"; sBox.innerHTML = "";
@@ -210,7 +208,8 @@
       qz.innerHTML = h;
     }
     function ans(i, el) {
-      document.querySelectorAll(".opt").forEach(b => b.disabled = true);if (i === qs[qi].a) { el.classList.add("ok"); sc++; }
+      document.querySelectorAll(".opt").forEach(b => b.disabled = true);
+      if (i === qs[qi].a) { el.classList.add("ok"); sc++; }
       else { el.classList.add("no"); document.querySelectorAll(".opt")[qs[qi].a].classList.add("ok"); }
       document.getElementById("exp").style.display = "block";
       document.getElementById("nx").style.display = "block";
