@@ -76,12 +76,12 @@
 
       <div class="calc-box">
         <div class="calc-title">🧮 Добавь свой продукт:</div>
-        <div class="type-row" style="grid-template-columns: repeat(2, 1fr); gap: 6px;">
-          <button class="t-btn on" onclick="setCat('drink', this)">🥤 Напиток</button>
-          <button class="t-btn" onclick="setCat('sweet', this)">🍬 Сладость</button>
-          <button class="t-btn" onclick="setCat('bake', this)">🍞 Хлеб / выпечка</button>
-          <button class="t-btn" onclick="setCat('sauce', this)">🥫 Соус / солёное</button>
-        </div>
+       <div class="type-row" style="grid-template-columns: repeat(2, 1fr); gap: 6px;">
+       <button class="t-btn c-btn on" onclick="setCat('drink', this)">🥤 Напиток</button>
+       <button class="t-btn c-btn" onclick="setCat('sweet', this)">🍬 Сладость</button>
+       <button class="t-btn c-btn" onclick="setCat('bake', this)">🍞 Хлеб / выпечка</button>
+       <button class="t-btn c-btn" onclick="setCat('sauce', this)">🥫 Соус / солёное</button>
+     </div>
         <div class="type-row" style="grid-template-columns: repeat(3, 1fr); gap: 5px;">
           <button class="t-btn s-btn on" id="sb1" onclick="setSize(0, this)">Стакан</button>
           <button class="t-btn s-btn" id="sb2" onclick="setSize(1, this)">Пол-литра (0,5)</button>
@@ -135,7 +135,7 @@
     let curCat = "drink", curIdx = 0;
     function setCat(c, btn) {
       curCat = c;
-      document.querySelectorAll(".calc-box .type-row:first-of-type .t-btn").forEach(b => b.classList.remove("on"));
+     document.querySelectorAll(".c-btn").forEach(b => b.classList.remove("on"));
       btn.classList.add("on");
       document.getElementById("sb1").innerText = cats[c].lbl.slice(0, 1);
       document.getElementById("sb2").innerText = cats[c].lbl.slice(1, 2);
